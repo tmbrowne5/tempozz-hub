@@ -385,8 +385,32 @@ section[id] {
 .actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 0.65rem;
   margin-top: 1.15rem;
+}
+
+.x-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 44px;
+  padding: 0 0.2rem;
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 560;
+  font-size: 0.95rem;
+}
+
+.x-link:hover {
+  color: var(--ink);
+}
+
+.x-icon {
+  width: 0.95rem;
+  height: 0.95rem;
+  display: block;
+  flex: none;
 }
 
 section {
@@ -925,6 +949,7 @@ blockquote p {
   min-height: 44px;
   display: inline-flex;
   align-items: center;
+  gap: 0.35rem;
   font-weight: 560;
 }
 
