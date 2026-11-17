@@ -44,6 +44,7 @@
       </a>
       <nav id="site-nav" aria-label="On this page">
         <a href="#live">Live</a>
+        <a href="#leaderboard">Leaderboard</a>
         <a href="#discord">Discord</a>
         <a href="#games">Games</a>
         <a href="#commands">Commands</a>
@@ -106,6 +107,23 @@
           </defs>
           <path d="M0 34 H150 l16 -12 14 22 16 -28 14 36 16 -18 20 8 H500 l14 -16 12 32 16 -40 14 46 16 -26 14 14 18 -8 H1200" fill="none" stroke="url(#wavegrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
+      </div>
+    </section>
+
+    <section id="leaderboard">
+      <div class="wrap">
+        <h2><span class="emo" aria-hidden="true">🏆</span> Leaderboard</h2>
+        <p class="intro">Top Temp Coins on the channel. You earn 5 every 10 minutes you hang out in chat while I'm live.</p>
+        <p class="intro">Type <code>!points</code> in Twitch chat to check yours.</p>
+        <div class="lb-card">
+          <ol id="lb-list" class="lb-list" hidden></ol>
+          <p id="lb-status" class="lb-status" aria-live="polite">Loading the top scores.</p>
+          <p id="lb-fallback" class="lb-fallback" role="status" hidden>The leaderboard didn't load. <a href="https://streamelements.com/tempozz/leaderboard" target="_blank" rel="noopener noreferrer">See the full list on StreamElements<span class="sr-only"> (opens in a new tab)</span></a>.</p>
+        </div>
+        <noscript>
+          <p class="lb-fallback">The live list needs JavaScript. <a href="https://streamelements.com/tempozz/leaderboard" target="_blank" rel="noopener noreferrer">See the full list on StreamElements<span class="sr-only"> (opens in a new tab)</span></a>.</p>
+        </noscript>
+        <p class="lb-more"><a class="btn btn-ghost" href="https://streamelements.com/tempozz/leaderboard" target="_blank" rel="noopener noreferrer">Full leaderboard<span class="sr-only"> (opens in a new tab)</span></a></p>
       </div>
     </section>
 

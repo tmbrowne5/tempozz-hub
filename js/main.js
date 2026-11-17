@@ -198,8 +198,134 @@
     });
   }
 
+  function setupLeaderboard() {
+    var list = document.querySelector("#lb-list");
+    var status = document.querySelector("#lb-status");
+    var fallback = document.querySelector("#lb-fallback");
+    if (!list || !status || !fallback) return;
+
+    var channel = "tempozz";
+    var limit = 10;
+    var refreshMs = 2 * 60 * 1000;
+    var channelId = "";
+    var hasRows = false;
+    var pending = false;
+
+    function setStatus(text) {
+      status.textContent = text;
+      status.hidden = !text;
+    }
+
+    function showFallback() {
+      if (hasRows) {
+        setStatus("Still showing the last scores. The newest pull didn't land.");
+        return;
+      }
+      list.hidden = true;
+      fallback.hidden = false;
+      setStatus("");
+    }
+
+    function formatPoints(value) {
+      return value.toLocaleString("en-US");
+    }
+
+    function readUsers(payload) {
+      if (!payload || !Array.isArray(payload.users)) return [];
+      var rows = [];
+      payload.users.forEach(function (user) {
+        if (!user || typeof user.username !== "string") return;
+        var name = user.username.trim();
+        var points = Number(user.points);
+        if (!name || !Number.isFinite(points)) return;
+        rows.push({ username: name, points: points });
+      });
+      return rows.slice(0, limit);
+    }
+
+    function render(users) {
+      var fragment = document.createDocumentFragment();
+      users.forEach(function (user, index) {
+        var rank = index + 1;
+        var row = document.createElement("li");
+        row.className = "lb-row";
+        if (rank === 1) row.classList.add("lb-gold");
+        else if (rank === 2) row.classList.add("lb-silver");
+        else if (rank === 3) row.classList.add("lb-bronze");
+
+        var badge = document.createElement("span");
+        badge.className = "lb-rank";
+        badge.setAttribute("aria-hidden", "true");
+        badge.textContent = String(rank);
+
+        var name = document.createElement("span");
+        name.className = "lb-name";
+        name.textContent = user.username;
+
+        var points = document.createElement("span");
+        points.className = "lb-points";
+        var amount = document.createElement("span");
+        amount.className = "lb-amount";
+        amount.textContent = formatPoints(user.points);
+        var unit = document.createElement("span");
+        unit.className = "lb-unit";
+        unit.textContent = "Temp Coins";
+        points.appendChild(amount);
+        points.appendChild(unit);
+
+        row.appendChild(badge);
+        row.appendChild(name);
+        row.appendChild(points);
+        fragment.appendChild(row);
+      });
+
+      list.replaceChildren(fragment);
+      list.hidden = false;
+      fallback.hidden = true;
+      hasRows = true;
+      var stamp = new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+      setStatus("Updated " + stamp + ". Refreshes every couple of minutes.");
+    }
+
+    function fetchJson(url) {
+      return fetch(url, { cache: "no-store", headers: { Accept: "application/json" } }).then(function (res) {
+        if (!res.ok) throw new Error("bad status");
+        return res.json();
+      });
+    }
+
+    function load() {
+      if (pending) return;
+      pending = true;
+
+      var idReady = channelId
+        ? Promise.resolve(channelId)
+        : fetchJson("https://api.streamelements.com/kappa/v2/channels/" + encodeURIComponent(channel)).then(function (data) {
+          if (!data || typeof data._id !== "string" || !data._id) throw new Error("no id");
+          channelId = data._id;
+          return channelId;
+        });
+
+      idReady.then(function (id) {
+        return fetchJson("https://api.streamelements.com/kappa/v2/points/" + encodeURIComponent(id) + "/top?limit=" + limit);
+      }).then(function (data) {
+        var users = readUsers(data);
+        if (!users.length) throw new Error("empty");
+        render(users);
+      }).catch(function () {
+        showFallback();
+      }).then(function () {
+        pending = false;
+      });
+    }
+
+    load();
+    setInterval(load, refreshMs);
+  }
+
   ready(function () {
     setupNav();
+    setupLeaderboard();
     setupSearch({
       input: document.querySelector("#cmd-search"),
       root: document.querySelector("#cmd-root"),

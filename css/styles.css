@@ -902,6 +902,150 @@ blockquote p {
   font-size: 0.92rem;
 }
 
+.lb-card,
+.lb-more,
+#leaderboard .intro {
+  max-width: 42rem;
+}
+
+.lb-card {
+  margin-top: 1.15rem;
+  padding: 0.35rem 0;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+html:not(.js) .lb-card {
+  display: none;
+}
+
+.lb-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lb-status,
+.lb-fallback {
+  margin: 0;
+  padding: 0.85rem 1.05rem 0.95rem;
+  color: var(--muted);
+}
+
+.lb-list:not([hidden]) + .lb-status {
+  border-top: 1px solid rgba(160, 180, 255, 0.12);
+  padding-top: 0.75rem;
+}
+
+.lb-fallback a {
+  color: #d9f7ff;
+}
+
+html:not(.js) #lb-status {
+  display: none;
+}
+
+noscript .lb-fallback {
+  display: block;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.lb-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.85rem;
+  align-items: center;
+  padding: 0.72rem 1.05rem;
+  border-bottom: 1px solid rgba(160, 180, 255, 0.12);
+}
+
+.lb-row:last-child {
+  border-bottom: 0;
+}
+
+.lb-rank {
+  width: 2.35rem;
+  height: 2.35rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(160, 180, 255, 0.22);
+}
+
+.lb-name {
+  font-weight: 650;
+  overflow-wrap: anywhere;
+}
+
+.lb-points {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.15;
+  text-align: right;
+}
+
+.lb-amount {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: #dff8ff;
+}
+
+.lb-unit {
+  margin-top: 0.12rem;
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.lb-gold {
+  background: linear-gradient(90deg, rgba(255, 198, 74, 0.2), transparent 72%);
+}
+
+.lb-gold .lb-rank {
+  color: #1c1404;
+  background: linear-gradient(160deg, #ffe7a4, #e0a428);
+  border-color: #ffe7a4;
+  box-shadow: 0 0 16px rgba(255, 196, 70, 0.4);
+}
+
+.lb-silver {
+  background: linear-gradient(90deg, rgba(206, 218, 236, 0.16), transparent 72%);
+}
+
+.lb-silver .lb-rank {
+  color: #161b24;
+  background: linear-gradient(160deg, #f7f9fc, #b4becc);
+  border-color: #f4f7fb;
+  box-shadow: 0 0 16px rgba(206, 218, 236, 0.32);
+}
+
+.lb-bronze {
+  background: linear-gradient(90deg, rgba(214, 146, 86, 0.2), transparent 72%);
+}
+
+.lb-bronze .lb-rank {
+  color: #2a160c;
+  background: linear-gradient(160deg, #f3c7a4, #c4844a);
+  border-color: #f0c4a2;
+  box-shadow: 0 0 16px rgba(212, 140, 74, 0.34);
+}
+
+.lb-more {
+  margin: 1rem 0 0;
+}
+
 .about-card {
   display: flex;
   gap: 1rem;
