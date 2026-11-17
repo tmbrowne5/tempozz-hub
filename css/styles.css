@@ -406,11 +406,17 @@ section[id] {
   color: var(--ink);
 }
 
-.x-icon {
+.x-icon,
+.yt-icon {
   width: 0.95rem;
   height: 0.95rem;
   display: block;
   flex: none;
+}
+
+.btn .yt-icon {
+  width: 1.05rem;
+  height: 1.05rem;
 }
 
 section {
@@ -1130,7 +1136,7 @@ noscript .lb-fallback {
   }
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1119px) {
   .bar {
     flex-wrap: wrap;
   }
