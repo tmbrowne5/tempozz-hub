@@ -10,4 +10,4 @@ python3 -m http.server 8080
 
 Then open http://localhost:8080
 
-The Twitch player only embeds on tmbrowne5.github.io and localhost. A custom domain needs that host added on the player URL.
+Live at https://tempozz.com. The Twitch player embeds on tempozz.com, www.tempozz.com, tmbrowne5.github.io and localhost.
